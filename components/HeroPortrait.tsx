@@ -2,7 +2,7 @@ import Image from "next/image";
 
 export default function HeroPortrait() {
   return (
-    <div className="relative h-full w-full max-w-[325px] pb-4 pr-4">
+    <div className="relative h-full w-full items-center m-auto max-w-[325px] pb-4 pr-4">
       <div className="relative h-full">
         <div
           aria-hidden="true"

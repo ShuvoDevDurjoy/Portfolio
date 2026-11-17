@@ -17,7 +17,7 @@ function SliderTrack({hidden = false}: {hidden?: boolean}){
             {
                 SKILLS.map((skill, index)=>{
                     return <>
-                        <p key={skill}>{skill}</p>
+                        <p className="text-md font-sans texl-normal" key={skill}>{skill}</p>
                         <p className="text-red-500 text-xl">+</p>
                     </>
                 })

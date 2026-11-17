@@ -33,16 +33,16 @@ const about = {
 export default function About() {
     return (
         <div className="my-10">
-            <div className="py-10 max-w-6xl m-auto grid grid-cols-4 gap-8 relative after:absolute after:w-full after:h-[1px] after:bg-red-500 after:bottom-0 after:left-0">
+            <div className="py-10 max-w-6xl m-auto grid lg:grid-cols-4 gap-8 relative after:absolute after:w-full after:h-[1px] after:bg-red-500 after:bottom-0 after:left-0">
                 <div className="col-span-2">
                     <SideTitle t_number="01" title={about.displayHeadline} description={about.sectionLabel}></SideTitle>
                 </div>
                 <div className="flex flex-col gap-4 col-span-2">
-                    <h2 className="text-3xl font-gmono">{about.bio.lead}</h2>
-                    <p className="font-gmono text-xl text-neutral-500 text-justify">{about.bio.paragraphs}</p>
+                    <h2 className="text-2xl lg:text-3xl font-sans">{about.bio.lead}</h2>
+                    <p className="font-gmono text-justify md:text-left text-md md:text-xl text-neutral-500 text-left leading-[1.04]">{about.bio.paragraphs}</p>
                 </div>
                 <div className="col-span-2">
-                    <p className="relative before:left-0 before:absolute before:w-[2px] before:h-full before:bg-red-500 before:top-0 px-4 font-gmono text-xl text-neutral-500">{about.quote}</p>
+                    <p className="relative before:left-0 before:absolute before:w-[2px] before:h-full before:bg-red-500 before:top-0 px-4 font-gmono text-sm lg:text-xl text-neutral-500">{about.quote}</p>
                 </div>
                 <div className="col-span-2">
                     <div className="grid grid-cols-2 md:grid-cols-4 border-y border-neutral-300 divide-y md:divide-y-0 md:divide-x divide-neutral-300">

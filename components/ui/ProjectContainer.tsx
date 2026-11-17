@@ -307,7 +307,7 @@ export default function ProjectContainer() {
                         const imageOnRight = index % 2 === 1
 
                         return (
-                            <article key={project.slug} className={`relative grid grid-cols-1 items-center gap-8 border-b border-neutral-200 py-10 first:pt-5 last:border-b-0 sm:gap-10 lg:grid-cols-2 lg:gap-16 lg:py-16 ${imageOnRight ? "lg:[&_.project-image]:order-2" : ""}`}>
+                            <article key={project.slug} className={`relative grid grid-cols-1 items-center gap-8 border-b border-neutral-200 py-10 first:pt-5 last:border-b-0 sm:gap-10 md:grid-cols-2 md:gap-16 md:py-16 ${imageOnRight ? "md:[&_.project-image]:order-2" : ""}`}>
                                 <div className="project-image flex aspect-[3/2] w-full flex-col border border-neutral-300 bg-[#f3efe8] after:absolute relative after:-z-10 after:w-full after:h-full after:bg-gray-300 after:left-0 after:top-0 after:translate-x-5 after:translate-y-5">
                                     <div className="relative min-h-0 w-full flex-1 bg-neutral-100">
                                         <Image
