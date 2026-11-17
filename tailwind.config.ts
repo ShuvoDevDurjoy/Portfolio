@@ -10,9 +10,25 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)", "sans-serif"],
+        mono: ["var(--font-geist-mono)", "monospace"],
+        gspace: ["var(--font-space-grotesk)", "gspace"], 
+        gmono: ["var(--font-space-mono)", "gmono"]
+      },
+      keyframes: {
+          marquee: {
+            "0%": {transform: "translateX(0%)"}, 
+            "100%": {transform: "translateX(-100%)"}
+          }
+      }, 
+      animation: {
+          marquee: "marquee 40s linear infinite"
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        terracotta: "#d97a5c",
         card: {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
