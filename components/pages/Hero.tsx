@@ -1,28 +1,36 @@
-import Image from "next/image";
 import HeroPortrait from "../HeroPortrait";
+import Link from "next/link";
+import { getPortfolioSection, hasPortfolioContent } from "@/lib/portfolio-content";
 
 
-export default function Hero(){
+export default async function Hero(){
+    const profile = await getPortfolioSection("profile");
+    if (!profile || !hasPortfolioContent(profile)) {
+        return null;
+    }
+
     return (
-        <div className="items-center mb-10">
-            <div className="max-w-6xl py-10 m-auto grid grid-cols-1 gap-12 lg:grid-cols-12 justify-between">
-                <div className=" gap-2 font-sans flex flex-col justify-between items-start col-span-1 lg:pt-8 lg:col-span-9">
-                    <p className="font-gmono flex gap-2 items-justify text-gray-500 uppercase text-xs block"><span className="w-1 rounded-full inline-block aspect-square bg-red-500"></span> Open to Internships & Full-Time Roles</p>
-                    <p className="font-gmono uppercase flex flex-wrap leading-[1.04] items-start gap-2 text-xs"><span className="text-red-500">Shuvo Dev</span> <span> /Software engineer</span></p>
-                    <h1 className="my-1 flex leading-[1.04] tracking-[-0.03em] font-normal flex-col font-sans text-3xl md:text-5xl lg:text-7xl "><span>Building dependable system </span> <span className="text-gray-400">for the real world.</span></h1>
-                    <div className="h-[1px] w-full bg-black/20 my-3"></div>
-                    <div className="grid sm:grid-cols-12 grid-cols-1 items-end gap-8">
-                        <p className="font-sans text-neutral-500 font-normal text-[18px] sm:col-span-6">I’m a computer science student and competitive programmer focused on distributed systems, high-throughput software, and products that remain clear under complexity.</p>
-                        <div className="sm:col-span-6 grid font-mono grid-cols-2 gap-2">
-                            <div className="bg-black flex items-center justify-between hover:bg-red-600 hover:duration-200 transition duration-200 text-white px-4 text-xs py-3">Selected Work</div>
-                            <div className="px-4 py-3 border-gray-400 text-xs border-2">Get in <br></br>Touch</div>
+        <section id="top" className="scroll-mt-24 items-center pb-8 pt-8 sm:pb-12 sm:pt-12">
+            <div className="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 py-4 sm:gap-12 lg:grid-cols-12 lg:py-8">
+                <div className={`gap-2 font-sans flex flex-col justify-between items-start col-span-1 lg:pt-8 ${profile.avatar_url ? "lg:col-span-9" : "lg:col-span-12"}`}>
+                    <p className="block items-center gap-2 font-gmono text-xs uppercase text-gray-500"><span className="mr-2 inline-block aspect-square w-1 rounded-full bg-red-500"></span>{profile.availability}</p>
+                    <p className="flex flex-wrap items-start gap-2 font-gmono text-xs uppercase leading-tight"><span className="text-red-500">{profile.full_name}</span><span>/ {profile.headline}</span></p>
+                    <h1 className="my-1 font-sans text-4xl font-normal leading-[1.04] tracking-[-0.03em] sm:text-5xl lg:text-7xl">{profile.tagline}</h1>
+                    <div className="my-3 h-px w-full bg-black/20"></div>
+                    <div className="grid grid-cols-1 items-end gap-6 sm:grid-cols-12 sm:gap-8">
+                        <p className="font-sans text-base font-normal text-neutral-500 sm:col-span-6 sm:text-lg">{profile.bio}</p>
+                        <div className="grid grid-cols-2 gap-2 font-mono text-xs sm:col-span-6">
+                            <Link className="flex items-center justify-between bg-black px-4 py-3 text-white transition-colors duration-200 hover:bg-red-600" href="#projects">Selected work <span aria-hidden="true">↗</span></Link>
+                            <Link className="border border-gray-400 px-4 py-3 transition-colors hover:border-neutral-900" href="#contact">Get in touch <span aria-hidden="true">↗</span></Link>
                         </div>
                     </div>
                 </div>
-                <div className="lg:col-span-3 items-center">
-                    <HeroPortrait></HeroPortrait>
-                </div>
+                {profile.avatar_url && (
+                    <div className="items-center lg:col-span-3">
+                        <HeroPortrait avatarUrl={profile.avatar_url} location={profile.location} organization={profile.university} />
+                    </div>
+                )}
             </div>
-        </div>
+        </section>
     )
 }

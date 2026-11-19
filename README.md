@@ -73,11 +73,13 @@ If you wish to just develop locally and not deploy to Vercel, [follow the steps 
    cd with-supabase-app
    ```
 
-4. Rename `.env.example` to `.env.local` and update the following:
+4. Create a `.env.local` file in the project root and set your Supabase credentials:
 
 ```env
-NEXT_PUBLIC_SUPABASE_URL=[INSERT SUPABASE PROJECT URL]
-NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR ANON KEY]
+NEXT_PUBLIC_SUPABASE_URL=your-supabase-project-url
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-supabase-publishable-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+ADMIN_EMAILS=you@example.com
 ```
 
 > [!NOTE]
@@ -85,7 +87,7 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=[INSERT SUPABASE PROJECT API PUBLISHABLE OR
 > Both legacy **anon** keys and new **publishable** keys can be used with this variable name during the transition period. Supabase's dashboard may show `NEXT_PUBLIC_SUPABASE_ANON_KEY`; its value can be used in this example.
 > See the [full announcement](https://github.com/orgs/supabase/discussions/29260) for more information.
 
-Both `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` can be found in [your Supabase project's API settings](https://supabase.com/dashboard/project/_?showConnect=true)
+Apply the SQL migration in `supabase/migrations` to your Supabase project before using the portfolio admin. Keep the service-role key server-only: never add the `NEXT_PUBLIC_` prefix or commit `.env.local`. Set the same environment variables in your Vercel project settings for deployment.
 
 5. You can now run the Next.js local development server:
 

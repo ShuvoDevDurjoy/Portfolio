@@ -6,10 +6,16 @@ export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
     request,
   });
+  const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
+  const isAdminLogin = request.nextUrl.pathname === "/admin/login";
 
-  // If the env vars are not set, skip proxy check. You can remove this
-  // once you setup the project.
   if (!hasEnvVars) {
+    if (isAdminRoute && !isAdminLogin) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/admin/login";
+      url.searchParams.set("setup", "required");
+      return NextResponse.redirect(url);
+    }
     return supabaseResponse;
   }
 
@@ -47,15 +53,9 @@ export async function updateSession(request: NextRequest) {
   const { data } = await supabase.auth.getClaims();
   const user = data?.claims;
 
-  if (
-    request.nextUrl.pathname !== "/" &&
-    !user &&
-    !request.nextUrl.pathname.startsWith("/login") &&
-    !request.nextUrl.pathname.startsWith("/auth")
-  ) {
-    // no user, potentially respond by redirecting the user to the login page
+  if (isAdminRoute && !isAdminLogin && !user) {
     const url = request.nextUrl.clone();
-    url.pathname = "/auth/login";
+    url.pathname = "/admin/login";
     return NextResponse.redirect(url);
   }
 

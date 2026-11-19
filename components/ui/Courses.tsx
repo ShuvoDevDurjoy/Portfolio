@@ -1,10 +1,16 @@
-import { courses } from "../data";
 import Title from "./Title";
+import { getPortfolioSection, hasPortfolioContent } from "@/lib/portfolio-content";
 
 
 
 
-export default function Courses() {
+export default async function Courses() {
+    const courses = await getPortfolioSection("courses");
+    const visibleCourses = (courses ?? []).filter(hasPortfolioContent);
+    if (visibleCourses.length === 0) {
+        return null;
+    }
+
     return <div className="py-8">
         <div>
             <div className="py-10">
@@ -12,7 +18,7 @@ export default function Courses() {
             </div>
             <div className="grid gap-8 md:grid-cols-2 grid-rows-2 gap-2">
                 {
-                    courses.map((c, index) => {
+                    visibleCourses.map((c, index) => {
                         return <div className="p-6 border flex flex-col justify-between gap-2 border-neutral-400" key={`courses_${index}`}>
                             <div className="flex-col flex gap-1">
                                 <span className="text-neutral-500 text-sm">{c.completed}</span>

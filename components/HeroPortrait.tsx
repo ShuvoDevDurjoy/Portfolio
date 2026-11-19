@@ -1,8 +1,16 @@
 import Image from "next/image";
 
-export default function HeroPortrait() {
+export default function HeroPortrait({
+  avatarUrl,
+  location,
+  organization,
+}: {
+  avatarUrl: string;
+  location: string;
+  organization: string;
+}) {
   return (
-    <div className="relative h-full w-full items-center m-auto max-w-[325px] pb-4 pr-4">
+    <div className="relative m-auto w-full max-w-[325px] pb-4 pr-4 lg:aspect-[3/4]">
       <div className="relative h-full">
         <div
           aria-hidden="true"
@@ -13,18 +21,19 @@ export default function HeroPortrait() {
           <div className="relative min-h-0 w-full flex-1 overflow-hidden">
             <Image
               className="h-full w-full object-cover object-top"
-              src="/images/image.png"
-              width={400}
+              src={avatarUrl}
+              width={600}
               height={800}
+              unoptimized
               alt="Portrait"
             />
           </div>
 
           <div className="grid shrink-0 grid-cols-2 border-t border-neutral-300 px-3 py-3 font-mono text-[9.5px] font-normal uppercase text-neutral-500">
             <div>
-              Based in Dhaka, <br /> Bangladesh
+              {location}
             </div>
-            <div className="self-center text-right">2024 - present</div>
+            <div className="self-center text-right">{organization}</div>
           </div>
         </div>
       </div>

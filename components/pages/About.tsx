@@ -1,45 +1,24 @@
 import SideTitle from "../ui/SideTitle"
+import { getPortfolioSection, hasPortfolioContent } from "@/lib/portfolio-content";
 
 
-const about = {
-    "sectionNumber": 1,
-    "sectionLabel": "ABOUT",
-    "displayHeadline": "Engineering with curiosity and restraint.",
-    "bio": {
-        "lead": "CS undergrad at North South University specialising in Distributed Systems, High-Performance Computing, and Full-Stack Engineering.",
-        "paragraphs": [
-            "Computer Science & Engineering undergraduate at North South University with a deep interest in software architecture, distributed databases, and high-throughput web applications. Expertise in C++, TypeScript, Go, and Python. Active competitive programmer, open-source contributor, and undergraduate TA — aiming to solve large-scale engineering problems at top-tier tech environments globally.",
-            "Competitive programming sharpened my ability to reason under pressure. Building distributed software taught me something more important: to design for failure, communicate trade-offs, and keep the path from idea to implementation deliberate."
-        ]
-    },
-    "quote": "The best systems are not the ones with the most moving parts. They're the ones whose behavior remains understandable when things go wrong.",
-    "metrics": [
-        { "value": "600+", "label": "PROBLEMS SOLVED", "order": 1 },
-        { "value": "2050+", "label": "LEETCODE RATING", "order": 2 },
-        { "value": "3.92", "label": "UNIVERSITY GPA", "order": 3 },
-        { "value": "Top 15", "label": "ICPC REGIONAL", "order": 4 }
-    ],
-    "workingPrinciples": {
-        "heading": "WORKING PRINCIPLES",
-        "items": [
-            { "text": "Make the system observable before making it clever.", "order": 1 },
-            { "text": "Prefer explicit trade-offs over hidden complexity.", "order": 2 },
-            { "text": "Ship, measure, learn, and simplify.", "order": 3 }
-        ]
+export default async function About() {
+    const about = await getPortfolioSection("about");
+    if (!about || !hasPortfolioContent(about)) {
+        return null;
     }
-}
 
-
-export default function About() {
     return (
-        <div className="my-10">
-            <div className="py-10 max-w-6xl m-auto grid lg:grid-cols-4 gap-8 relative after:absolute after:w-full after:h-[1px] after:bg-red-500 after:bottom-0 after:left-0">
+        <section id="about" className="scroll-mt-24 py-6 sm:py-10">
+            <div className="relative mx-auto grid max-w-6xl gap-8 pb-10 after:absolute after:bottom-0 after:left-0 after:h-px after:w-full after:bg-red-500 lg:grid-cols-4">
                 <div className="col-span-2">
                     <SideTitle t_number="01" title={about.displayHeadline} description={about.sectionLabel}></SideTitle>
                 </div>
                 <div className="flex flex-col gap-4 col-span-2">
                     <h2 className="text-2xl lg:text-3xl font-sans">{about.bio.lead}</h2>
-                    <p className="font-gmono text-justify md:text-left text-md md:text-xl text-neutral-500 text-left leading-[1.04]">{about.bio.paragraphs}</p>
+                    <div className="space-y-4 font-gmono text-sm leading-relaxed text-neutral-500 sm:text-base">
+                        {about.bio.paragraphs.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                    </div>
                 </div>
                 <div className="col-span-2">
                     <p className="relative before:left-0 before:absolute before:w-[2px] before:h-full before:bg-red-500 before:top-0 px-4 font-gmono text-sm lg:text-xl text-neutral-500">{about.quote}</p>
@@ -61,8 +40,8 @@ export default function About() {
                         ))}
                     </div>
                     <div className="py-5">
-                        <p className="py-7 text-gmono text-2xlmb-4 font-gmono text-xs uppercase tracking-widest text-neutral-600">{about.workingPrinciples.heading}</p>
-                        <ul className="border-y border-neutral-300 divide-y-300 divide-y">
+                        <p className="mb-4 py-3 font-gmono text-xs uppercase tracking-widest text-neutral-600">{about.workingPrinciples.heading}</p>
+                        <ul className="divide-y divide-neutral-300 border-y border-neutral-300">
                             {
                                 about.workingPrinciples.items.map((wp, index) => {
                                     return <li
@@ -81,8 +60,7 @@ export default function About() {
                         </ul>
                     </div>
                 </div>
-                <hr className="w-full "></hr>
             </div>
-        </div>
+        </section>
     )
 }

@@ -1,41 +1,35 @@
-import SideTitle from "../ui/SideTitle";
+import SocialLinks from "../ui/SocialLinks";
+import ContactForm from "./ContactForm";
+import { getPortfolioSection } from "@/lib/portfolio-content";
 
+export default async function Contact() {
+    const profile = await getPortfolioSection("profile");
+    if (!profile?.email) {
+        return null;
+    }
 
-
-
-export default function Contact() {
-    return <section>
-        <div className="max-w-6xl m-auto py-8 grid grid-cols-12">
-            <div className="md:col-span-5 flex flex-col gap-4">
-                <div className="">
-                    <p className="flex gap-2 items-end">
-                        <span className="text-2xl font-gspace text-transparent [-webkit-text-stroke:1px__#d97a5c]">10</span>
-                        <span className="font-gspace text-neutral-500">Contact</span>
-                    </p>
-                    <h2 className="text-normal font-sans text-3xl lg:text-5xl">Have a problem worth solving?</h2>
-                </div>
-                <p className="text-neutral-500 text-sm font-gspace">I’m open to software engineering roles, internships, and thoughtful collaborations. Tell me what you’re working on.</p>
+    return <section id="contact" className="scroll-mt-24 border-t border-neutral-300 py-10 sm:py-16">
+        <div className="mx-auto grid max-w-6xl grid-cols-1 gap-8 md:grid-cols-12 md:gap-12">
+            <div className="flex flex-col gap-4 md:col-span-5">
+                <p className="flex items-end gap-2">
+                    <span className="font-gspace text-2xl text-transparent [-webkit-text-stroke:1px__#d97a5c]">10</span>
+                    <span className="font-gspace text-neutral-500">Contact</span>
+                </p>
+                <h2 className="font-sans text-3xl sm:text-4xl lg:text-5xl">Have a problem worth solving?</h2>
+                <p className="font-gspace text-sm leading-relaxed text-neutral-500">I’m open to software engineering roles, internships, and thoughtful collaborations. Tell me what you’re working on.</p>
             </div>
-            <div className="md:col-start-7 md:col-span-6">
-                <form className="gap-2 flex-col flex justify-between">
-                    <div className="py-4 flex flex-col gap-2">
-                        <label className="text-neutral-500 text-sm uppercase font-gmono">Name</label>
-                        <input className="border-trasparent border-b outline-none font-gspace text-neutral-500" name="title" type="text"></input>
-                    </div>
-                    <div className="flex py-4 flex-col gap-2">
-                        <label htmlFor="title" className="text-neutral-500 text-sm uppercase font-gmono">title</label>
-                        <input className="border-trasparent border-b outline-none font-gspace text-neutral-500" name="title" type="text"></input>
-                    </div>
-                    <div className=" py-4 flex flex-col gap-2">
-                        <label htmlFor="email" className="text-neutral-500 text-sm uppercase font-gmono">email</label>
-                        <input className="border-trasparent border-b outline-none font-gspace text-neutral-500" name="email" type="text"></input>
-                    </div>
-                    <div className="py-4 flex flex-col gap-2">
-                        <label htmlFor="message" className="text-neutral-500 text-sm uppercase font-gmono">message</label>
-                        <textarea className="border-trasparent border-b outline-none font-gspace text-neutral-500" name="message"></textarea>
-                    </div>
-                </form>
+            <div className="flex flex-col justify-between gap-6 border-y border-neutral-300 py-6 md:col-start-7 md:col-span-6">
+                <div>
+                    <p className="mb-2 font-gmono text-xs uppercase tracking-widest text-neutral-500">Email</p>
+                    <a className="break-all font-sans text-xl transition-colors hover:text-[#d97a5c] sm:text-2xl" href={`mailto:${profile.email}`}>{profile.email}</a>
+                </div>
+                <SocialLinks />
+                <ContactForm email={profile.email} />
             </div>
         </div>
+        <footer className="mx-auto mt-12 flex max-w-6xl flex-col gap-2 border-t border-neutral-200 pt-5 font-gmono text-xs text-neutral-500 sm:flex-row sm:items-center sm:justify-between">
+            <span>© {profile.full_name}</span>
+            <a className="transition-colors hover:text-neutral-900" href="#top">Back to top ↑</a>
+        </footer>
     </section>
 }

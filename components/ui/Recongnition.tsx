@@ -1,8 +1,13 @@
-import SideTitle from "./SideTitle";
 import Title from "./Title";
-import { achievements } from "../data";
+import { getPortfolioSection, hasPortfolioContent } from "@/lib/portfolio-content";
 
-export default function Recognition(){
+export default async function Recognition(){
+    const achievements = await getPortfolioSection("achievements");
+    const visibleAchievements = (achievements ?? []).filter(hasPortfolioContent);
+    if (visibleAchievements.length === 0) {
+        return null;
+    }
+
     return <div className="py-8">
         <div className="max-w-6xl m-auto">
             <div className="py-8">
@@ -10,7 +15,7 @@ export default function Recognition(){
             </div>
             <div className="grid gap-8 md:grid-cols-2 grid-rows-2 gap2">
                 {
-                    achievements.map((achievement, index)=>{
+                    visibleAchievements.map((achievement, index)=>{
                         return <div className="p-6 border border-neutral-400" key={`achievement_container_${index}`}>
                             <div>
                                 <p className="text-neutral-500 font-gspace">
